@@ -1,15 +1,27 @@
 export default function TodoItem({ task, onToggle, onDelete }) {
   return (
-    <li className="flex justify-between items-center py-2 border-b">
-      <span
-        onClick={onToggle}
-        className={`cursor-pointer flex-1 ${task.done ? "line-through text-gray-400" : ""}`}
-      >
-        {task.text}
-      </span>
-      <button onClick={onDelete} className="text-red-500 hover:text-red-700 ml-4">
-        Eliminar
-      </button>
-    </li>
+    <tr className="border-b last:border-none hover:bg-gray-50">
+      <td className="p-2">
+        <input
+          type="checkbox"
+          checked={task.done}
+          onChange={onToggle}
+          className="w-5 h-5"
+        />
+      </td>
+      <td className="p-2">
+        <span className={task.done ? "line-through text-gray-400" : ""}>
+          {task.text}
+        </span>
+      </td>
+      <td className="p-2 text-center">
+        <button
+          onClick={onDelete}
+          className="text-red-600 hover:text-red-800 font-semibold"
+        >
+          Eliminar
+        </button>
+      </td>
+    </tr>
   )
 }
