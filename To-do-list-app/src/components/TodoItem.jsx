@@ -14,6 +14,15 @@ export default function TodoItem({ task, onToggle, onDelete }) {
           {task.text}
         </span>
       </td>
+      <td className="p-2">
+        {task.due ? (
+            <span className={new Date(task.due) < new Date() && !task.done ? "text-red-500 font-semibold" : ""}>
+            {task.due}
+            </span>
+        ) : (
+            <span className="text-gray-400">Sin fecha</span>
+        )}
+        </td>
       <td className="p-2 text-center">
         <button
           onClick={onDelete}

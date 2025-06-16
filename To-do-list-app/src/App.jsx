@@ -10,6 +10,7 @@ const [input, setInput] = useState("")
 const [search, setSearch] = useState("")
 const [filter, setFilter] = useState("all")
 const [isInitialLoad, setIsInitialLoad] = useState(true)
+const [dueDate, setDueDate] = useState("")
 
 
   // ✅ useEffect que guarda tareas cada vez que cambian
@@ -34,11 +35,13 @@ useEffect(() => {
 
 
   const addTask = () => {
-    if (input.trim() !== "") {
-      setTasks([...tasks, { text: input, done: false }])
+    const newTask = input.trim()
+    if (newTask === "") return 
+      setTasks([...tasks, { text: input, done: false, due: dueDate || null, }])
       setInput("")
+      setDueDate("")
     }
-  }
+  
 
   const toggleDone = (index) => {
     const newTasks = [...tasks]
@@ -71,6 +74,12 @@ useEffect(() => {
             onChange={e => setInput(e.target.value)}
             className="border p-2 flex-1 rounded"
             placeholder="Escribe una nueva tarea"
+          />
+          <input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            className="border p-2 rounded"
           />
           <button onClick={addTask} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
             Agregar
@@ -119,6 +128,7 @@ useEffect(() => {
               <tr>
                 <th className="p-2 text-left">Completado</th>
                 <th className="p-2 text-left">Tarea</th>
+                <th className="p-2 text-left">Fecha límite</th>
                 <th className="p-2">Acciones</th>
               </tr>
             </thead>
@@ -138,5 +148,4 @@ useEffect(() => {
     </div>
   )
 }
-
 export default App
